@@ -10,9 +10,9 @@ def main():
     function = config.wavefunction
 
     # Initial wavefunction
-    plt.subplot(2, 1, 1)
+    plt.subplot(3, 1, 1)
     xs = np.linspace(*config.potential(0), config.FIDELITY)
-    ys = [function(x) for x in xs]
+    ys = [np.abs(function(x)) for x in xs]
     plt.plot(xs, ys)
 
     # Decompose, time evolve
@@ -20,9 +20,16 @@ def main():
     func = decomp.recompose(coeffs, config.potential(0))
 
     # Draw
-    plt.subplot(2, 1, 2)
+    plt.subplot(3, 1, 2)
     xs = np.linspace(*config.potential(0), config.FIDELITY)
-    ys = [func(x) for x in xs]
+    ys = [np.abs(func(x)) for x in xs]
+    plt.plot(xs, ys)
+
+    # Increment time - for now with const potential
+    func = decomp.recomposete(coeffs, config.potential(0))
+    plt.subplot(3, 1, 3)
+    xs = np.linspace(*config.potential(0), config.FIDELITY)
+    ys = [np.abs(func(x)) for x in xs]
     plt.plot(xs, ys)
 
     plt.show()

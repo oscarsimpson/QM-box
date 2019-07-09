@@ -2,7 +2,7 @@ import numpy as np
 
 
 FFT_NUM = 15
-TIMESTEP = 0.01
+TIMESTEP = 1
 ZERO_EPS = 10**(-10)
 FIDELITY = 1000
 

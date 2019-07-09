@@ -25,14 +25,30 @@ def decompose(function, potential):
     # -j is used as we have (exp(jx)-exp(-jx))/2j
 
 
-def recompose(coeffs, potential):
+def recomposete(coeffs, potential):
     """Return the time evolved wavefunction.
 
     Take a set of Fourier coeffs and the potential, and calculates the value
     of the wavefunction at the next timestep, using the current basis
     functions.
+    """
 
-    Note: Currently does not perform time evolution.
+    def func(x):
+        value = 0
+        n = 0
+        while(n < len(coeffs)//2):
+            value += coeffs[n+len(coeffs)//2]*basis(n, potential)(x)\
+                * np.exp(1j * n * config.TIMESTEP)
+            n += 1
+        return value
+    return func
+
+
+def recompose(coeffs, potential):
+    """Return the non-time evolved wavefunction.
+
+    Take a set of Fourier coeffs and the potential, and calculates the value
+    of the wavefunction at this timestep, using the current basis functions.
     """
 
     def func(x):
